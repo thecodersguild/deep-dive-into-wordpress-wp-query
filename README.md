@@ -43,15 +43,15 @@ The Atlanta WordPress Coder's Guild
 	- Use `is_main_query()` when needed
 	- Always modify query based on using `$args`
 
-5. Caching Queries
+6. Caching Queries
 	- Using Transients
 	- Using Object Cache
 
-6. Most Used Hooks
+7. Most Used Hooks
     - `'posts_clauses'`
     - `'pre_get_posts'`
 
-6. Other Hooks
+8. Other Hooks
     - `'posts_selection'`
     - `'parse_tax_query'`
     - `'posts_search'`
@@ -90,5 +90,5 @@ The Atlanta WordPress Coder's Guild
     - `'old_slug_redirect_url'`
     - `'wp_search_stopwords'`
 
-
+9. Summary
 
