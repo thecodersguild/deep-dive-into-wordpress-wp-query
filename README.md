@@ -92,22 +92,3 @@ The Atlanta WordPress Coder's Guild
 
 
 
-
-
-
-
-
-
-Outline
-1. Intro
-2. Overview of `WP_Query` usage
-3. Basic `WP_Query` Usage
-4. Query by Meta Fields
-5. Query by Taxonomy Terms: 
-6. Modifying SQL
-7. Caching Queries
-8. Most Uses Hooks
-9. Other Hooks
-
-
-	
