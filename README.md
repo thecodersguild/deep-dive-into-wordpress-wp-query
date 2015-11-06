@@ -1,7 +1,7 @@
 #[Deep Dive into WordPress' WP_Query](http://www.meetup.com/atlanta-wordpress-coders-guild/events/222522372/)
 [The Atlanta WordPress Coder's Guild](http://www.meetup.com/atlanta-wordpress-coders-guild/)
-- Presenters: @mikeschinkel / @wpscholar
-- Twitter: @thecodersguild
+- Presenters: [@mikeschinkel](http://twitter.com/mikeschinkel) / [@wpscholar](http://twitter.com/wpscholar)
+- Twitter: [@thecodersguild](http://twitter.com/thecodersguild)
 - Hashtags: #wp_query #awcgs 
 
 
