@@ -1,4 +1,4 @@
-#Deep Dive into WP_Query
+#Deep Dive into WordPress' WP_Query
 The Atlanta WordPress Coder's Guild
 - Presenters: @mikeschinkel / @wpscholar
 - Twitter: @thecodersguild
@@ -47,7 +47,7 @@ The Atlanta WordPress Coder's Guild
 	- Using Transients
 	- Using Object Cache
 
-6. Most Uses Hooks
+6. Most Used Hooks
     - `'posts_clauses'`
     - `'pre_get_posts'`
 
@@ -89,6 +89,25 @@ The Atlanta WordPress Coder's Guild
     - `'content_pagination'`
     - `'old_slug_redirect_url'`
     - `'wp_search_stopwords'`
+
+
+
+
+
+
+
+
+
+Outline
+1. Intro
+2. Overview of `WP_Query` usage
+3. Basic `WP_Query` Usage
+4. Query by Meta Fields
+5. Query by Taxonomy Terms: 
+6. Modifying SQL
+7. Caching Queries
+8. Most Uses Hooks
+9. Other Hooks
 
 
 	
