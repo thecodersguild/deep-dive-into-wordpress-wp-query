@@ -6,89 +6,34 @@
 
 
 ##Outline
-0. Intro
+1. Intro
+	- Review the Outline
 	- What is `WP_Query`?
-	- We'll gloss over 
-	- We'll dive in deep
-	
-1. Overview of `WP_Query` usage
-	- https://codex.wordpress.org/Class_Reference/WP_Query
-	- https://generatewp.com/wp_query/
-	- What does `WP_Query` allow querying?
-		- Post fields
-			- ID, post_name, post_type, post_parent, post_author, date fields, etc.
-			- Freeform text match in content
-		- Post Meta
-		- Related taxonomy terms
-		- Author Names
-		- Pagination
-		- Order
-	- Arguments that do not affect SQL query
-		- Permissions
-		- Caching 
+			
+1. Overview of WP_Query usage
+    - GenerateWP.com
+    - What does `WP_Query` allow querying?
+    - `WP_Query` allows Subsetting and Ordering
+    - `WP_Query` allows Hiding and Caching
+    - References
 		
-2. Basic `WP_Query` Usage
-	- Default query configuration
-		- `$post_status='public'`
-	- Query by common: `ID`, `post_type`, etc.
+1. Basic `WP_Query` Usage
+	- With [The Loop](https://codex.wordpress.org/The_Loop): 
+	- Using directly: 
+	- Automatically used by WordPress on every page load
+	- Vs. `query_posts()` and `get_posts()`
 	
-3. Query by Meta Fields
-	- `meta_query`
+1. Intermediate `WP_Query` Usage
+	- Query by Taxonomy Terms: 
+	- Query by Meta Fields
+	- Using Hooks
 
-4. Query by Taxonomy Terms: 
-	- `tax_query`
-	
-5. Modifying SQL
-	- When do you need to modify SQL
-	- Use `is_main_query()` when needed
-	- Always modify query based on using `$args`
+1. Advanced `WP_Query` Usage
+	- Optimization
+	- Modifying SQL
+	- Caching Queries
+	- Best Practices
 
-6. Caching Queries
-	- Using Transients
-	- Using Object Cache
 
-7. Most Used Hooks
-    - `'posts_clauses'`
-    - `'pre_get_posts'`
-
-8. Other Hooks
-    - `'posts_selection'`
-    - `'parse_tax_query'`
-    - `'posts_search'`
-    - `'posts_search_orderby'`
-    - `'posts_where'`	
-    - `'posts_join'`	
-    - `'comment_feed_join'`
-    - `'comment_feed_where'`
-    - `'comment_feed_groupby'`
-    - `'comment_feed_orderby'`
-    - `'comment_feed_limits'`
-    - `'posts_where_paged'`
-    - `'posts_groupby'`
-    - `'posts_join_paged'`
-    - `'posts_orderby'`
-    - `'posts_distinct'`
-    - `'post_limits'`
-    - `'posts_fields'`
-    - `'posts_where_request'`
-    - `'posts_groupby_request'`
-    - `'posts_join_request'`
-    - `'posts_orderby_request'`
-    - `'posts_distinct_request'`
-    - `'post_limits_request'`
-    - `'posts_fields_request'`
-    - `'posts_clauses_request'`
-    - `'posts_request'`
-    - `'split_the_query'`
-    - `'posts_request_ids'`
-    - `'posts_results'`
-    - `'the_preview'`
-    - `'the_posts'`
-    - `'found_posts_query'`
-    - `'found_posts'`
-    - `'content_pagination'`
-    - `'old_slug_redirect_url'`
-    - `'wp_search_stopwords'`
-
-9. Summary
-
+##Workshop
+Go [here](workshop.md).
