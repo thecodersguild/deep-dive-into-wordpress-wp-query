@@ -161,9 +161,6 @@
 
 
 
-	
-		
-
 	- `meta_query`
 	    - **For the Workshop**: 
 	    
@@ -202,22 +199,42 @@
 					$query = new WP_Query( array(
 						'post_type' => 'epr_event',
 						'meta_query' => array(
-							'key'      => '_epr_event[venue_id]',
-							'compare'   => 'IN',
-							'value'   	=> array(
-								$sbw->posts[0],
-								$tlc->posts[0],
+						    array(
+								'key'      => '_epr_event[venue_id]',
+								'compare'   => 'IN',
+								'value'   	=> array(
+									$sbw->posts[0],
+									$tlc->posts[0],
+								),
 							),
 						),
 					));
 	
 - Using Hooks
     - `'pre_get_posts'`
-    - `'posts_clauses'`
+    
+    	The action hook `pre_get_posts` is primarily for us with the main query:
+    	
+	    - **For the Workshop**: 
+	    
+		    - Add to `functions.php` to display (blog) posts alphabetically on home page.
+		
+					add_filter( 'pre_get_posts', 'tcg_pre_get_posts' );
+					function tcg_pre_get_posts( $query ) {
+						if ( $query->is_home() && $query->is_main_query() ) {
+							$query->set( 'order', 'ASC' );
+							$query->set( 'orderby', 'title' );
+						}
+					}
+	
+    	- [Modify the Query for Loop using “pre\_get_posts”](https://siteorigin.com/thread/modify-the-query-for-loop-using-pre_get_posts/)
+    	- [Modifying the current query with pre\_get_posts](http://www.remicorson.com/modifying-the-current-query-with-pre_get_posts/)
+    	- [The Dangers of Using pre\_get_posts in WordPress (incorrectly)](https://tommcfarlin.com/pre_get_posts-in-wordpress/)
 
 
-### Advanced WP_Query Usage
-- 
+    - `'posts_clauses'` 
+    
+    	- See examples below in _"Modifying SQL"_ section
 
 - Optimization
 	- `$nopaging`
@@ -226,18 +243,71 @@
 		- Might be needed for custom code.
 
 
+### Advanced WP_Query Usage
+
 
 - Modifying SQL
-	- When do you need to modify SQL
-	- Use `is_main_query()` when needed
-	- Always modify query based on using `$args`
-	- Using `$wpdb` 
-		- Table names
-		- `prepare()`
+	- When do you need to modify SQL?
+		- When you can't achieve what you need just with `WP_Query`
+	- **Workshop:** Add this to `functions.php`:
+	
+				add_filter( 'query_vars', 'tcg_query_vars' );
+				function tcg_query_vars( $query_vars ) {
+					$query_vars[] = 'epr_meetups_query';
+					return $query_vars;
+				}
 
+				add_filter( 'posts_clauses', 'tcg_posts_clauses', 10, 2 );
+				function tcg_posts_clauses( $clauses, $query ) {
+					global $wpdb;
+					if ( $query->get( 'epr_meetups_query' ) ) {
+						$clauses['fields'] = "{$wpdb->posts}.ID,{$wpdb->posts}.post_title";
+					}
+					return $clauses;
+				}
+				
+	- Note use of `$wpdb->posts` for table name
+				
 - Caching Queries
-	- Using Transients
-	- Using Object Cache
+
+	- Using Object Cache for hosting **with Persistent Cache**
+	
+			$query = wp_cache_get( $cache_key = "meetups_query" );
+			if ( ! $query ) {
+				$query = new WP_Query( array(
+						'post_type'         => 'epr_event',
+						'posts_per_page'    => 999,
+					);
+				);
+				wp_cache_set( $cache_key, $query, 'eventpress-redux', 5*60 );
+			}
+
+	- Using Transients for hosting w/o Persistent Cache
+	
+			$query = get_transient( $transient_key = "epr_meetups_query" );
+			if ( ! $query ) {
+				$query = new WP_Query( array(
+						'post_type'         => 'epr_event',
+						'posts_per_page'    => 999,
+					);
+				);
+				set_transient( $transient_key, $query, 5*60 );
+			}
+
+
+	- For When Query `$args` can change 
+
+			$args = array(
+				'post_type'         => 'epr_event',
+				'posts_per_page'    => 999,
+				/* More options that differ based on user action */
+			);
+			$key = md5( serialize( $args ) );
+			$query = wp_cache_get( $cache_key = "meetups_query[{$key}]" );
+			if ( ! $query ) {
+				$query = new WP_Query( $args );
+				wp_cache_set( $cache_key, $query, 'eventpress-redux', 5*60 );
+			}
 
 - Setting 404
 
@@ -246,8 +316,12 @@
 		nocache_headers();
 	
 - Best Practice
-	- Always modify query based on an argument
+	- Always modify query SQL and/or behavior based on an argument
+		- e.g. `'epr_meetups_query'`
 		- Not based on globals or other implicit state
+		- Except Main Query
+			- Use `'main_query[{$key}]'` for caching 
+			- Where `$key = md5( $_SERVER['REQUEST_URI'] );`
 
 
 ### Other Hook List

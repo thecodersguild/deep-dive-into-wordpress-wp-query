@@ -32,7 +32,7 @@
 	- Optimization
 	- Modifying SQL
 	- Caching Queries
-	- Best Practices
+	- A Best Practice
 
 
 ##Workshop
